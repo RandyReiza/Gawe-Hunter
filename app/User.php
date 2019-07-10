@@ -38,7 +38,7 @@ class User extends Authenticatable
     ];
 
 
-    // !!! ROLE -----
+    // ROLE -----
     // relation to model roles
     public function roles()
     {

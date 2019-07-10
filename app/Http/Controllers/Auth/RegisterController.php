@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use DateTime;
 
 class RegisterController extends Controller
 {
@@ -49,12 +50,27 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
+        // Validator::extend('olderThan', function ($attribute, $value, $parameters) {
+        //     $minAge = (!empty($parameters)) ? (int) $parameters[0] : 13;
+        //     return (new DateTime)->diff(new DateTime($value))->y >= $minAge;
+        // });
+
+        $messages = [
+            'required' => ':Attribute wajib diisi !',
+            'min' => ':Attribute harus diisi minimal :min karakter !',
+            'max' => ':Attribute harus diisi maksimal :max karakter !',
+            'string' => ':Attribute harus berupa huruf',
+            'email' => 'Penulisan :Attribute harus sesuai dengan Format Email',
+            'confirmed' => 'Password & Konfirmasi password harus sama',
+            'before' => 'Anda harus lebih dari 17 tahun untuk bisa mendaftar',
+        ];
+
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
-            'tgl_lahir' => ['required', 'string'],
-        ]);
+            'tgl_lahir' => ['required', 'string', 'before:-17 years'],
+        ], $messages);
     }
 
     /**
@@ -69,7 +85,7 @@ class RegisterController extends Controller
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
-            'tgl_lahir' => $data['tgl_lahir'],
+            'tgl_lahir' => date("Y-m-d", strtotime($data['tgl_lahir'])),
         ]);
         $user
             ->roles()
