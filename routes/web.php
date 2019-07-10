@@ -18,3 +18,13 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+// Admin home
+Route::group(['middleware' => ['auth', 'role:admin']], function () {
+    Route::get('admin', 'Admin\AdminController@Index')->name('admin-home');
+});
+
+// User Home
+Route::group(['middleware' => ['auth', 'role:user']], function () {
+    Route::get('user', 'User\UserController@Index')->name('user-home');
+});
