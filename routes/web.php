@@ -21,10 +21,18 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 // Admin home
 Route::group(['middleware' => ['auth', 'role:admin']], function () {
-    Route::get('admin', 'Admin\AdminController@Index')->name('admin-home');
+    // Route Admin Home
+    Route::get('admin', 'Admin\AdminController@home')->name('admin-home');
+
+    // Route ke method list users
+    Route::get('users', 'Admin\AdminController@list_users');
 });
 
 // User Home
 Route::group(['middleware' => ['auth', 'role:user']], function () {
-    Route::get('user', 'User\UserController@Index')->name('user-home');
+    // Route User Home
+    Route::get('user', 'User\UserController@home')->name('user-home');
+    Route::resource('user', 'User\UserController', ['only' => ['edit', 'update']]);
+    // Route User Profile
+    Route::get('profile', 'User\UserController@show')->name('user.profile');
 });

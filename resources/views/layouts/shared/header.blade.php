@@ -11,6 +11,19 @@
             <li class="nav-item {{ Request::is('/') ? 'active' : '' }}">    {{--  {{ Request::is('/') ? 'active' : '' }}, utk membuat class active {bootstrap} saat url yg dituju sesuai --}}
                 <a class="nav-link" href="{{ url('/') }}">Home</a>
             </li>
+            {{-- Dashboard utk Admin & User --}}
+            @auth
+                @if (Auth::user()->hasRole('admin'))
+                <li class="nav-item {{ Request::is('admin') ? 'active' : '' }}">
+                    <a class="nav-link" href="{{ route('admin-home') }}">Dashboard Admin</a>
+                </li>
+                @endif
+                @if (Auth::user()->hasRole('user'))
+                <li class="nav-item {{ Request::is('user') ? 'active' : '' }}">
+                    <a class="nav-link" href="{{ route('user-home') }}">Dashboard User</a>
+                </li>
+                @endif
+            @endauth
         </ul>
         {{-- Menu Login & Register --}}
         <ul class="navbar-nav pull-right">
@@ -22,11 +35,12 @@
                 <a class="nav-link" href="{{ route('register') }}">Register</a>
             </li>
             @else
-            <li class="nav-item dropdown">
+            <li class="nav-item dropdown mr-4">
                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button">
                     {{ Auth::user()->name }} <span class="caret"></span>
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                    <a class="dropdown-item" href="{{ route('user.profile') }}">Profile</a>
                     <a class="dropdown-item" href="{{ route('logout') }}"
                         onclick="event.preventDefault();
                                  document.getElementById('logout-form').submit();">
