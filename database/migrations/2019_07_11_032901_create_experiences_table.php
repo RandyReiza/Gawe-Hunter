@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCVSTable extends Migration
+class CreateExperiencesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,10 @@ class CreateCVSTable extends Migration
      */
     public function up()
     {
-        // !!! buat nanti
-        // Schema::create('cv', function (Blueprint $table) {
-
-        Schema::create('c_v_s', function (Blueprint $table) {
+        Schema::create('experiences', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('user_id');
-            $table->string('file');
+            $table->string('experience');
             $table->timestamps();
         });
     }
@@ -31,6 +28,6 @@ class CreateCVSTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('c_v_s');
+        Schema::dropIfExists('experiences');
     }
 }

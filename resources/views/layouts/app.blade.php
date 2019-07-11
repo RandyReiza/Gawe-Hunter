@@ -15,6 +15,10 @@
 
     <!-- Font Awesome Icons -->
     <link href="{{ asset('plugins/font-awesome-4.6.3/css/font-awesome.min.css') }}" rel="stylesheet" type="text/css" />
+
+    {{-- Toastr.js --}}
+    <link href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet" />
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet" />
 </head>
 
 <body>
@@ -39,7 +43,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
     {{-- JQuery UI --}}
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    {{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> --}}
 
     <!-- Date-picker -->
 	<script src=" {{ asset('plugins/datepicker/bootstrap-datepicker.js') }}" type="text/javascript"></script>
@@ -47,6 +51,12 @@
     <!-- include plugin summernote WYSIWYG editor -->
     {{-- <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote.css" rel="stylesheet">
     <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote.js"></script> --}}
+
+    {{-- Toastr.js --}}
+    <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+
+    {{-- SweetAlert --}}
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
     {{-- js sendiri --}}
     <script src="{{ asset('js/script.js') }}"></script>

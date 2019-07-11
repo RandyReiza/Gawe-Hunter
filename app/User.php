@@ -77,4 +77,16 @@ class User extends Authenticatable
     {
         return $this->hasOne('App\CV', 'user_id');
     }
+
+    // relation to model Skill
+    public function skill()
+    {
+        return $this->hasMany('App\Skill', 'user_id');
+    }
+
+    // relation to model Experience
+    public function experience()
+    {
+        return $this->hasMany('App\Experience', 'user_id');
+    }
 }
