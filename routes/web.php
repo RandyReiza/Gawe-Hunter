@@ -11,9 +11,9 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
 Auth::routes();
 
@@ -45,3 +45,7 @@ Route::group(['middleware' => ['auth', 'role:user']], function () {
     // Route experience, bikin route resource tp hanya store yg d gunakan
     Route::resource('experience', 'User\ExperienceController', ['only' => ['store']]);
 });
+
+
+// Route job, bikin route resource
+Route::resource('/', 'JobController');
