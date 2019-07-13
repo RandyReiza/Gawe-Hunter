@@ -1,22 +1,16 @@
 @extends('layouts.app')   {{-- layout blade template ngikut dulu ke master.blade.php {di folder layour dalam direktori VIEW} --}}
 
-@section('title', 'Jobs')
+@section('title', 'Job App')
 
 @section('content')
 
 {{-- alert -->> by Toastr.js & SweetAlert --}}
-@if (Session::get('alert') == 'success')
+{{-- alert -->> by Toastr.js --}}
+@if (Session::has('alert'))
     <script>
         window.onload = function() {
-            toastr_alert("success", "{{ Session::get('message') }}", "Success")
-            swal("Success", "{{ Session::get('message') }}", "success");
-        }
-    </script>
-@elseif (Session::get('alert') == 'danger')
-    <script>
-        window.onload = function() {
-            toastr_alert("error", "{{ Session::get('message') }}", "Deleted")
-            swal("Terhapus", "{{ Session::get('message') }}", "error");
+            toastr_alert("{{ Session::get('alert') }}", "{{ Session::get('message') }}", "{{ Session::get('status') }}")
+            swal("{{ Session::get('status') }}", "{{ Session::get('message') }}", "{{ Session::get('alert') }}");
         }
     </script>
 @else

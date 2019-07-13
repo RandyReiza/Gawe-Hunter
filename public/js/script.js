@@ -99,3 +99,21 @@ $('#btn-experience').on('click', function (e) {
     toastr_alert("success", "Pengalaman Anda telah tersimpan!", "Success")
 });
 
+
+
+
+
+
+$(document).ready(function () {
+    // plugin summernote WYSIWYG editor
+    $('#textarea').summernote();
+
+    // show kolom apply job
+    $('#btn-show-kolom-apply').on('click', function (e) {
+        // munculkan Kolom alasan ingin Apply
+        $('#kolom-apply').show();
+
+        // hide button Apply
+        $('#btn-show-kolom-apply').hide();
+    });
+});

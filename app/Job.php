@@ -9,4 +9,10 @@ class Job extends Model
     protected $fillable = [
         'title', 'place', 'description'
     ];
+
+    // relation to model user
+    public function users()
+    {
+        return $this->belongsToMany(User::class);
+    }
 }

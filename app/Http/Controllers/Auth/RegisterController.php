@@ -61,6 +61,7 @@ class RegisterController extends Controller
             'max' => ':Attribute harus diisi maksimal :max karakter !',
             'string' => ':Attribute harus berupa huruf',
             'email' => 'Penulisan :Attribute harus sesuai dengan Format Email',
+            'email.unique' => 'Email ini sudah terdaftar',
             'confirmed' => 'Password & Konfirmasi password harus sama',
             'before' => 'Anda harus lebih dari 17 tahun untuk bisa mendaftar',
         ];
@@ -87,9 +88,7 @@ class RegisterController extends Controller
             'password' => bcrypt($data['password']),
             'tgl_lahir' => date("Y-m-d", strtotime($data['tgl_lahir'])),
         ]);
-        $user
-            ->roles()
-            ->attach(Role::where('name', 'User')->first());
+        $user->roles()->attach(Role::where('name', 'User')->first());
         return $user;
     }
 }

@@ -68,10 +68,6 @@ class User extends Authenticatable
     // -----
 
 
-
-
-
-
     // relation to model CV
     public function cv()
     {
@@ -88,5 +84,11 @@ class User extends Authenticatable
     public function experience()
     {
         return $this->hasMany('App\Experience', 'user_id');
+    }
+
+    // relation to model job
+    public function jobs()
+    {
+        return $this->belongsToMany(Job::class);
     }
 }

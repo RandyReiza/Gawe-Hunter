@@ -8,7 +8,7 @@
     
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item {{ Request::is('/') ? 'active' : '' }}">    {{--  {{ Request::is('/') ? 'active' : '' }}, utk membuat class active {bootstrap} saat url yg dituju sesuai --}}
+            <li class="nav-item {{ Request::is('/') ? 'active' : '' }} {{ Request::is('job') ? 'active' : '' }} {{ Request::is('job/*') ? 'active' : '' }}"> 
                 <a class="nav-link" href="{{ url('/') }}">Home</a>
             </li>
             {{-- Dashboard utk Admin & User --}}
@@ -40,7 +40,9 @@
                     {{ Auth::user()->name }} <span class="caret"></span>
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                    <a class="dropdown-item" href="{{ route('user.profile') }}">Profile</a>
+                    @if (Auth::user()->hasRole('User'))
+                        <a class="dropdown-item" href="{{ route('user.profile') }}">Profile</a>                        
+                    @endif
                     <a class="dropdown-item" href="{{ route('logout') }}"
                         onclick="event.preventDefault();
                                  document.getElementById('logout-form').submit();">

@@ -9,6 +9,8 @@ use App\User;
 use App\Http\Requests\UserRequest;
 use Illuminate\Support\Facades\Session;
 use App\CV;
+use App\Application;
+use App\Job;
 
 class UserController extends Controller
 {
@@ -74,6 +76,8 @@ class UserController extends Controller
         // tampilkan pesan ke view
         Session::flash("message", "Sukses mengupdate Data Profile");
         Session::flash("alert", "warning");
+        Session::flash("status", "Warning");
+
 
         return redirect()->route('user.profile');
     }
@@ -108,7 +112,45 @@ class UserController extends Controller
         // tampilkan pesan ke view
         Session::flash("message", "Sukses mengupload CV");
         Session::flash("alert", "success");
+        Session::flash("status", "Sukses");
 
         return redirect()->route('user.profile');
+    }
+
+    public function apply(Request $request)
+    {
+        // ambil id user yg sedang log in
+        $user_id = Auth::user()->id;
+        // ambil job id yang ingin dilamar
+        $job_id = $request->job_id;
+        // ambil deskripsi dari application {alasan melamar}
+        $description = $request->description;
+        // set status ke 'Unread'
+        $status = 'Unread';
+
+        // ambil user yang melamar
+        $user = User::find($user_id);
+        // ambil job yang dilamar
+        $job = Job::find($job_id);
+
+        // attach (insert) ke table job_user (Model: Application)
+        $user->jobs()->attach($job, ['description' => $description, 'status' => $status]);
+
+        // $data_application = [
+        //     'user_id' => $user_id,
+        //     'job_id' => $request->job_id,
+        //     'description' => $request->description,
+        //     'status' => 'Unread'
+        // ];
+
+        // Application::create($data_application);
+
+        // tampilkan pesan ke view
+        Session::flash("message", "Sukses Melamar Pekerjaan");
+        Session::flash("alert", "success");
+        Session::flash("status", "Sukses");
+
+        // // redirect ke route job.index
+        return redirect()->route('job.index');
     }
 }

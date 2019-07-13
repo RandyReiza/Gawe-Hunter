@@ -11,9 +11,9 @@
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
+Route::get('/', function () {
+    return redirect()->route('job.index');
+});
 
 Auth::routes();
 
@@ -44,8 +44,11 @@ Route::group(['middleware' => ['auth', 'role:user']], function () {
 
     // Route experience, bikin route resource tp hanya store yg d gunakan
     Route::resource('experience', 'User\ExperienceController', ['only' => ['store']]);
+
+    // Route apply job
+    Route::post('apply', 'User\UserController@apply')->name('apply');
 });
 
 
 // Route job, bikin route resource
-Route::resource('/', 'JobController');
+Route::resource('job', 'JobController');

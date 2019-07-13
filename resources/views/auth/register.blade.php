@@ -51,7 +51,7 @@
 
                         <div class="form-group">
                             <div class="col-md-7">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirm" placeholder="Konfirmasi Password" required>
+                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" placeholder="Konfirmasi Password" required>
 
                                 @if($errors->has('password-confirm'))
                                     <div class="text-danger">

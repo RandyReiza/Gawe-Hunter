@@ -49,6 +49,7 @@
                                     <td>:</td>
                                     <td>
                                         @if (isset($user->cv->file))
+                                        {{-- output nama file CV --}}
                                             {{ substr($user->cv->file, strpos($user->cv->file, "_") + 1) }}
                                         @else
                                             Anda belum Upload CV, silahkan Upload !
@@ -58,9 +59,15 @@
                                 <tr>
                                     @if (isset($user->cv->file))
                                     <td colspan="3">
-                                        <img src="{{ asset($user->cv->file) }}" alt="cv-img" width="200px">
-                                        <br>
-                                        <br>
+                                        {{-- buat output image CV, jika format filenya image --}}
+                                        @if ((substr($user->cv->file, strpos($user->cv->file, ".") + 1)) == 'jpg' ||
+                                              (substr($user->cv->file, strpos($user->cv->file, ".") + 1)) == 'jpeg' ||
+                                              (substr($user->cv->file, strpos($user->cv->file, ".") + 1)) == 'png')
+                                            <img src="{{ asset($user->cv->file) }}" alt="cv-img" width="200px">
+                                            <br>
+                                            <br>
+                                        @endif
+                                        {{-- button download CV --}}
                                         <button class="btn btn-outline-success">Download CV</button>
                                     </td>    
                                     @else
