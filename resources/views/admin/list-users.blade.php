@@ -33,9 +33,14 @@
                 <td><a href="mailto:{{ $u->email }}">{{ $u->email }}</a></td>
                 <td>@datetime($u->tgl_lahir)</td>
                 @foreach ($u->roles as $role)
-                    <td>{{ $role->name }}</td>
+                    <td>
+                        @if ($role->name == "Admin")
+                            <span class="badge badge-primary">{{ $role->name }}</span>
+                        @else
+                            <span class="badge badge-warning">{{ $role->name }}</span>
+                        @endif
+                    </td>
                 @endforeach
-                <td> <a class="btn btn-primary" href="/sendEmail/{{ $u->email }}">Send E-mail</a> </td>
             </tr>             
             @empty
             <tr>

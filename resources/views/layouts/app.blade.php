@@ -19,6 +19,9 @@
     {{-- Toastr.js --}}
     <link href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet" />
     <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet" />
+
+    {{-- style sendiri --}}
+    <link href="{{ asset('css/style.css') }}" rel="stylesheet" />
 </head>
 
 <body>

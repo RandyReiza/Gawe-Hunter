@@ -19,6 +19,7 @@ class CreateJobUserTable extends Migration
             $table->integer('job_id')->unsigned();
             $table->text('description');
             $table->string('status');
+            $table->timestamps();
         });
     }
 

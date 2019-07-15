@@ -40,6 +40,9 @@
                     {{ Auth::user()->name }} <span class="caret"></span>
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                    @if (Auth::user()->hasRole('Admin'))
+                        <a class="dropdown-item" href="{{ url('list-users') }}">List Users</a>
+                    @endif
                     @if (Auth::user()->hasRole('User'))
                         <a class="dropdown-item" href="{{ route('user.profile') }}">Profile</a>                        
                     @endif

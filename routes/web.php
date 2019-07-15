@@ -25,7 +25,11 @@ Route::group(['middleware' => ['auth', 'role:admin']], function () {
     Route::get('admin', 'Admin\AdminController@home')->name('admin-home');
 
     // Route ke method list users
-    Route::get('users', 'Admin\AdminController@list_users');
+    Route::get('list-users', 'Admin\AdminController@list_users');
+    // Route accept
+    Route::get('accept/{id}', 'Admin\AdminController@accept')->name('accept');
+    // Route reject
+    Route::get('reject/{id}', 'Admin\AdminController@reject')->name('reject');
 });
 
 // Route Role User
@@ -38,13 +42,10 @@ Route::group(['middleware' => ['auth', 'role:user']], function () {
     Route::post('storeCV', 'User\UserController@storeCV')->name('store-CV');
     // Route User Profile
     Route::get('profile', 'User\UserController@show')->name('user.profile');
-
     // Route skill, bikin route resource tp hanya store yg d gunakan
     Route::resource('skill', 'User\SkillController', ['only' => ['store']]);
-
     // Route experience, bikin route resource tp hanya store yg d gunakan
     Route::resource('experience', 'User\ExperienceController', ['only' => ['store']]);
-
     // Route apply job
     Route::post('apply', 'User\UserController@apply')->name('apply');
 });

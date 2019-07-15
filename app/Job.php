@@ -13,6 +13,8 @@ class Job extends Model
     // relation to model user
     public function users()
     {
-        return $this->belongsToMany(User::class);
+        return $this->belongsToMany('App\User')->using('App\Application')
+            ->withPivot('id', 'description', 'status')
+            ->withTimestamps();
     }
 }

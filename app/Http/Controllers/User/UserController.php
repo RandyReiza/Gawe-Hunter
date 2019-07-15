@@ -136,15 +136,6 @@ class UserController extends Controller
         // attach (insert) ke table job_user (Model: Application)
         $user->jobs()->attach($job, ['description' => $description, 'status' => $status]);
 
-        // $data_application = [
-        //     'user_id' => $user_id,
-        //     'job_id' => $request->job_id,
-        //     'description' => $request->description,
-        //     'status' => 'Unread'
-        // ];
-
-        // Application::create($data_application);
-
         // tampilkan pesan ke view
         Session::flash("message", "Sukses Melamar Pekerjaan");
         Session::flash("alert", "success");

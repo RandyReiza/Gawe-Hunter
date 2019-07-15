@@ -89,6 +89,8 @@ class User extends Authenticatable
     // relation to model job
     public function jobs()
     {
-        return $this->belongsToMany(Job::class);
+        return $this->belongsToMany('App\Job')->using('App\Application')
+            ->withPivot('id', 'description', 'status')
+            ->withTimestamps();
     }
 }

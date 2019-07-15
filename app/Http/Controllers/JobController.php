@@ -109,6 +109,16 @@ class JobController extends Controller
      */
     public function destroy(Job $job)
     {
+        // ambil job yang dilamar
+        $job = Job::find($job->id);
+
+        // ambil user yg melamar k job yg dipilih
+        $users = Job::find($job->id)->users;
+
+        // detach (delete) ke pivot table job_user (Model: Application)
+        $job->users()->detach($users);
+
+        // delete job dgn id yg dipilih
         Job::destroy($job->id);
 
         // tampilkan pesan ke view
