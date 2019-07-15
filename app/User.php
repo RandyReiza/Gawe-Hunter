@@ -90,7 +90,7 @@ class User extends Authenticatable
     public function jobs()
     {
         return $this->belongsToMany('App\Job')->using('App\Application')
-            ->withPivot('id', 'description', 'status')
+            ->withPivot('id', 'description', 'status', 'note')
             ->withTimestamps();
     }
 }

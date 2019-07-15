@@ -1,3 +1,15 @@
 #black {
     color: black;
 }
+
+#cv {
+    animation-iteration-count: 3;
+}
+
+#skill {
+    animation-iteration-count: 3;
+}
+
+#experience {
+    animation-iteration-count: 3;
+}

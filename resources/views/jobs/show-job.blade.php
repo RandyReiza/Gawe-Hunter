@@ -55,7 +55,7 @@
 
     {{-- Kolom alasan ingin Apply {defaultnya sengaja di 'style display: none' supaya ke hidden -->> lalu d klik tombol apply & dimunculin id="kolom-apply" pake JS} --}}
     <div class="mt-3" id="kolom-apply" style="display: none;">
-        @if (isset(Auth::user()->cv->file))
+        @if (isset(Auth::user()->cv->file) && isset(Auth::user()->skill[0]->skill) && isset(Auth::user()->experience[0]->experience))
             <hr style="border: 1px solid black; border-radius: 1px;">
             <h5 class="row col"><i>Apa yang membuat anda tertarik dengan perusahaan kami:</i></h5>
             <div class="mt-3">
@@ -63,7 +63,7 @@
                     {{ csrf_field() }}
                     <input type="hidden" id="job_id" name="job_id" value="{{ $job->id }}">
                     <div class="form-group">
-                        <textarea name="description" id="textarea" cols="30" rows="10" class="form-control" placeholder="Apa yang membuat anda tertarik dengan perusahaan kami"></textarea>
+                        <textarea name="description" cols="30" rows="5" class="form-control" placeholder="Apa yang membuat anda tertarik dengan perusahaan kami"></textarea>
                         @if($errors->has('description'))
                             <div class="text-danger">
                             {{ $errors->first('description') }}
@@ -77,8 +77,8 @@
             </div>
         @else
             <hr style="border: 1px solid black; border-radius: 1px;">
-            <h4>Anda belum upload CV, silahkan Upload CV terlebih dahulu</h4>
-            <a href="{{ url('profile') }}" class="btn btn-success">Upload CV</a> 
+            <h4>Anda belum melengkapi profil anda, silahkan lengkapi profil untuk bisa melamar</h4>
+            <a href="{{ url('profile') }}" class="btn btn-success">Lengkapi Profil</a> 
         @endif
     </div>
 </div>

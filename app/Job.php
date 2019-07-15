@@ -14,7 +14,7 @@ class Job extends Model
     public function users()
     {
         return $this->belongsToMany('App\User')->using('App\Application')
-            ->withPivot('id', 'description', 'status')
+            ->withPivot('id', 'description', 'status', 'note')
             ->withTimestamps();
     }
 }

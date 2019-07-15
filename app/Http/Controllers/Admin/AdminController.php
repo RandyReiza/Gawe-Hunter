@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use App\User;
 use App\Job;
 use App\Application;
+use Illuminate\Support\Facades\Response;
 
 class AdminController extends Controller
 {
@@ -44,20 +45,39 @@ class AdminController extends Controller
 
 
     // accept application
-    public function accept($id)
+    public function accept(Request $request)
     {
+        // ambil catatan penerimaan
+        $note = $request->note;
+
         // update application sesuai dgn id yg dipilih ke DB
-        Application::find($id)->update(['status' => 'Accept']);
+        Application::find($request->application_id)->update(['status' => 'Accept', 'note' => $note]);
 
         return redirect()->route('admin-home');
     }
 
     // reject application
-    public function reject($id)
+    public function reject(Request $request)
     {
+        // ambil catatan penerimaan
+        $note = $request->note;
+
         // update application sesuai dgn id yg dipilih ke DB
-        Application::find($id)->update(['status' => 'Reject']);
+        Application::find($request->application_id)->update(['status' => 'Reject', 'note' => $note]);
 
         return redirect()->route('admin-home');
+    }
+
+    // download CV
+    public function downloadCV(Request $request)
+    {
+        // ambil local addres dr filenya
+        $filepath = public_path($request->file);
+
+        // ksh nama buat filenya
+        $name = substr($request->file, strpos($request->file, "_") + 1);
+
+        // return dgn response download file tsb
+        return Response::download($filepath, $name);
     }
 }

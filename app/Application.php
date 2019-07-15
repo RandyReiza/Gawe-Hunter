@@ -10,6 +10,6 @@ class Application extends Pivot
     protected $table = 'job_user';
 
     protected $fillable = [
-        'user_id', 'job_id', 'description', 'status'
+        'user_id', 'job_id', 'description', 'status', 'note'
     ];
 }

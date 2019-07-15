@@ -11,12 +11,13 @@ use Illuminate\Support\Facades\Session;
 use App\CV;
 use App\Application;
 use App\Job;
+use Illuminate\Support\Facades\Response;
 
 class UserController extends Controller
 {
     public function home()
     {
-        return view('user.home')->with('role', Auth::user()->name);
+        return view('user.home');
     }
 
     public function show()
@@ -117,6 +118,19 @@ class UserController extends Controller
         return redirect()->route('user.profile');
     }
 
+    // download CV
+    public function downloadCV(Request $request)
+    {
+        // ambil local addres dr filenya
+        $filepath = public_path($request->file);
+
+        // ksh nama buat filenya
+        $name = substr($request->file, strpos($request->file, "_") + 1);
+
+        // return dgn response download file tsb
+        return Response::download($filepath, $name);
+    }
+
     public function apply(Request $request)
     {
         // ambil id user yg sedang log in
@@ -127,6 +141,8 @@ class UserController extends Controller
         $description = $request->description;
         // set status ke 'Unread'
         $status = 'Unread';
+        // set note ke ''
+        $note = '';
 
         // ambil user yang melamar
         $user = User::find($user_id);
@@ -134,7 +150,7 @@ class UserController extends Controller
         $job = Job::find($job_id);
 
         // attach (insert) ke table job_user (Model: Application)
-        $user->jobs()->attach($job, ['description' => $description, 'status' => $status]);
+        $user->jobs()->attach($job, ['description' => $description, 'status' => $status, 'note' => $note]);
 
         // tampilkan pesan ke view
         Session::flash("message", "Sukses Melamar Pekerjaan");

@@ -9,7 +9,7 @@
         {{-- row ke 1 --}}
         <div class="row mb-5">
             <div class="col-6">
-                <div class="card">
+                <div class="card bg-light">
                     <div class="card-body">
                         <h3> <u>Indentitas User</u> </h3>
                         <table class="table">
@@ -39,7 +39,7 @@
             </div>
 
             <div class="col-6">
-                <div class="card">
+                <div class="card bg-light @if (app('router')->getRoutes()->match(app('request')->create(url()->previous()))->getName() == 'job.show' && empty($user->cv->file)) border-danger animated infinite bounce @endif " id="cv">
                     <div class="card-body">
                         <h3> <u>Curriculum vitae</u> </h3>
                         <table class="table">
@@ -49,7 +49,7 @@
                                     <td>:</td>
                                     <td>
                                         @if (isset($user->cv->file))
-                                        {{-- output nama file CV --}}
+                                            {{-- output nama file CV --}}
                                             {{ substr($user->cv->file, strpos($user->cv->file, "_") + 1) }}
                                         @else
                                             Anda belum Upload CV, silahkan Upload !
@@ -59,16 +59,12 @@
                                 <tr>
                                     @if (isset($user->cv->file))
                                     <td colspan="3">
-                                        {{-- buat output image CV, jika format filenya image --}}
-                                        @if ((substr($user->cv->file, strpos($user->cv->file, ".") + 1)) == 'jpg' ||
-                                              (substr($user->cv->file, strpos($user->cv->file, ".") + 1)) == 'jpeg' ||
-                                              (substr($user->cv->file, strpos($user->cv->file, ".") + 1)) == 'png')
-                                            <img src="{{ asset($user->cv->file) }}" alt="cv-img" width="200px">
-                                            <br>
-                                            <br>
-                                        @endif
                                         {{-- button download CV --}}
-                                        <button class="btn btn-outline-success">Download CV</button>
+                                        <form action="{{ url('downloadCV') }}" method="POST" >
+                                            {{ csrf_field() }}
+                                            <input type="hidden" name="file" value="{{ $user->cv->file }}">
+                                            <button type="submit" class="btn btn-outline-success">Download CV</button>
+                                        </form>
                                     </td>    
                                     @else
                                     <td colspan="3">
@@ -94,7 +90,7 @@
         {{-- row ke 2 --}}
         <div class="row">
             <div class="col-6">
-                <div class="card">
+                <div class="card bg-light @if (app('router')->getRoutes()->match(app('request')->create(url()->previous()))->getName() == 'job.show' && empty($user->skill[0]->skill)) border-danger animated infinite bounce @endif " id="skill">
                     <div class="card-body">
                         <h3> <u>Keterampilan</u> </h3>
                         <table class="table">
@@ -139,7 +135,7 @@
             </div>
 
             <div class="col-6">
-                <div class="card">
+                <div class="card bg-light @if (app('router')->getRoutes()->match(app('request')->create(url()->previous()))->getName() == 'job.show' && empty($user->experience[0]->experience)) border-danger animated infinite bounce @endif " id="experience">
                     <div class="card-body">
                         <h3> <u>Pengalaman Kerja</u> </h3>
                         <table class="table">
@@ -155,7 +151,7 @@
                                         <input type="hidden" id="user_id" name="user_id" value="{{ $user->id }}">
                                         <td>
                                             <div class="form-group">
-                                                <input type="text" class="form-control" id="experience" name="experience" placeholder="Kemampuan" value="{{ old('experience') }}">
+                                                <input type="text" class="form-control" id="experience" name="experience" placeholder="Pengalaman Kerja" value="{{ old('experience') }}">
                                                 @if($errors->has('experience'))
                                                     <div class="text-danger">
                                                     {{ $errors->first('experience') }}

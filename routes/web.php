@@ -27,9 +27,11 @@ Route::group(['middleware' => ['auth', 'role:admin']], function () {
     // Route ke method list users
     Route::get('list-users', 'Admin\AdminController@list_users');
     // Route accept
-    Route::get('accept/{id}', 'Admin\AdminController@accept')->name('accept');
+    Route::post('accept', 'Admin\AdminController@accept')->name('accept');
     // Route reject
-    Route::get('reject/{id}', 'Admin\AdminController@reject')->name('reject');
+    Route::post('reject', 'Admin\AdminController@reject')->name('reject');
+    // Route Download CV
+    Route::post('download-cv', 'Admin\AdminController@downloadCV')->name('download-cv');
 });
 
 // Route Role User
@@ -48,6 +50,8 @@ Route::group(['middleware' => ['auth', 'role:user']], function () {
     Route::resource('experience', 'User\ExperienceController', ['only' => ['store']]);
     // Route apply job
     Route::post('apply', 'User\UserController@apply')->name('apply');
+    // Route Download CV
+    Route::post('downloadCV', 'User\UserController@downloadCV')->name('downloadCV');
 });
 
 
