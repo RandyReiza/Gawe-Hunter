@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Experience;
 use App\User;
+use Illuminate\Support\Facades\Session;
 
 class ExperienceController extends Controller
 {
@@ -22,7 +23,25 @@ class ExperienceController extends Controller
             ->with('exp', $exp)
             ->render();
 
+        // tampilkan pesan ke view
+        Session::flash("message", "Sukses menambah Pengalaman");
+        Session::flash("alert", "success");
+        Session::flash("status", "Sukses");
+
         // return json yg berisi view & status 
         return response()->json(['view' => $view, 'status' => 'success']);
+    }
+
+    public function destroy(Experience $experience)
+    {
+        // delete job dgn id yg dipilih
+        Experience::destroy($experience->id);
+
+        // tampilkan pesan ke view
+        Session::flash("message", "Pengalaman telah terhapus");
+        Session::flash("alert", "error");
+        Session::flash("status", "Terhapus");
+
+        return redirect('profile#pengalaman');
     }
 }

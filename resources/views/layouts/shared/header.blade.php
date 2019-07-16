@@ -1,13 +1,13 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand">
-        <img src="{{ asset('img/nasa.png') }}" alt="nasa" width="65" height="50" class="d-inline-block align-top">
-    </a>
+    {{-- web title --}}
+    <span style="color: white; font-size: 25px" class="ml-1 animated infinite pulse">GAWE HUNTER</span>
+
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
     
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
+        <ul class="navbar-nav mr-auto ml-3">
             <li class="nav-item {{ Request::is('/') ? 'active' : '' }} {{ Request::is('job') ? 'active' : '' }} {{ Request::is('job/*') ? 'active' : '' }}"> 
                 <a class="nav-link" href="{{ url('/') }}">Home</a>
             </li>

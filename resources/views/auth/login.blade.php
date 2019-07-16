@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Job App - Login')
+@section('title', 'GAWE HUNTER - Login')
 
 @section('content')
 <div class="container">

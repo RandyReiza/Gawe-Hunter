@@ -14,13 +14,25 @@ class JobController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        // ambil data dr table job
-        $jobs = Job::orderBy('created_at', 'DESC')->paginate(5);
+        // jika ada request dr ajax
+        if ($request->ajax()) {
+            // lakukan pencarian article berdasarkan inputan d search box
+            $jobs = Job::with('users')
+                ->where('title', 'like', '%' . $request->search . '%')
+                ->orderBy('created_at', 'DESC')
+                ->paginate(5);
 
-        return view('jobs.welcome')
-            ->with('jobs', $jobs);
+            // buat view yg berupa String karena d casting (String), untuk dimasukkan k json yg akan d pass k view list-comment
+            $view = (string) view('jobs.list-job')->with('jobs', $jobs)->render();
+            return response()->json(['view' => $view, 'status' => 'success']);
+        } else {
+            // ambil data dr table job
+            $jobs = Job::orderBy('created_at', 'DESC')->paginate(5);
+
+            return view('jobs.welcome')->with('jobs', $jobs);
+        }
     }
 
     /**
@@ -75,7 +87,7 @@ class JobController extends Controller
      */
     public function edit(Job $job)
     {
-        // cari article dgn id yg dipilih
+        // cari job dgn id yg dipilih
         $job = Job::find($job->id);
 
         return view('jobs.edit-job')->with('job', $job);
@@ -122,7 +134,7 @@ class JobController extends Controller
         Job::destroy($job->id);
 
         // tampilkan pesan ke view
-        Session::flash("message", "Sukses menghapus Artikel");
+        Session::flash("message", "Sukses menghapus Pekerjaan");
         Session::flash("alert", "error");
         Session::flash("status", "Terhapus");
 

@@ -100,6 +100,28 @@ $('#btn-experience').on('click', function (e) {
 });
 
 
+// ajax search
+$('#search-input').on('keyup', function () {
+    $.ajax({
+        url: '/job',
+        type: 'GET',
+        dataType: 'json',
+        data: {
+            'search': $('#search-input').val()
+        },
+        success: function (data) {
+            $('#list-job').html(data['view']);
+            console.log(data);
+        },
+        error: function (xhr, status) {
+            console.log(xhr.eror + 'ERROR STATUS : ' + status);
+        },
+        complete: function () {
+            alreadyloading = false;
+        }
+    });
+});
+
 
 
 

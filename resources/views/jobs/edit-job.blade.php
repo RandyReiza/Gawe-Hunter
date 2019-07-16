@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Edit Pekerjaan "' . $job->title . '"')
+@section('title', 'GAWE HUNTER - Edit Pekerjaan "' . $job->title . '"')
 
 @section('content')
     <h3>Edit Pekerjaan</h3>
@@ -35,7 +35,7 @@
         <hr>
 
         <div class="form-group pull-right">
-            <input type="submit" value="Ubah Pekerjaan" class="btn btn-dark">
+            <input type="submit" value="Ubah Pekerjaan" class="btn btn-warning" onclick="return confirm('Anda yakin dengan data yang anda masukkan?')">
         </div>
     </form>
 @endsection

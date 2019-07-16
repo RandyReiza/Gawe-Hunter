@@ -28,8 +28,6 @@
 </head>
 
 <body>
-    {{-- !!! FILE master.blade.php jangan pernah dipanggil di Route, file ini hanya kerangka view saja utk view yg lain !!! --}}
-
     {{-- header --}}
     @include('layouts.shared.header')
 

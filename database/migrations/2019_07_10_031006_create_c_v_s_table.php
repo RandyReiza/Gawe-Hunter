@@ -13,10 +13,7 @@ class CreateCVSTable extends Migration
      */
     public function up()
     {
-        // !!! buat nanti
-        // Schema::create('cv', function (Blueprint $table) {
-
-        Schema::create('c_v_s', function (Blueprint $table) {
+        Schema::create('cv', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('user_id');
             $table->string('file');
@@ -31,6 +28,6 @@ class CreateCVSTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('c_v_s');
+        Schema::dropIfExists('cv');
     }
 }

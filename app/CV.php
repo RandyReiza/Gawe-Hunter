@@ -6,9 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class CV extends Model
 {
-
-    // !!! mengarahlan model CV ke table cv dlm database
-    // protected $table = 'cv';
+    protected $table = 'cv';
 
     protected $fillable = [
         'user_id', 'file', 'caption'

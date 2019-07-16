@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', $job->title)
+@section('title', 'GAWE HUNTER - "' . $job->title . '"')
 
 @section('content')
 
@@ -9,22 +9,19 @@
     <script>
         window.onload = function() {
             toastr_alert("{{ Session::get('alert') }}", "{{ Session::get('message') }}", "{{ Session::get('status') }}")
-            swal("{{ Session::get('status') }}", "{{ Session::get('message') }}", "{{ Session::get('alert') }}");
         }
     </script>
-@else
-
 @endif
 
 {{-- PAGE CONTENT --}}
 <h2 class="row">{!! $job->title !!}</h2>
 
 <hr style="border: 1px solid black; border-radius: 1px;">
-{{-- artikel content --}}
+{{-- job description --}}
 <div>{!! $job->description !!}</div>
 <hr style="border: 1px solid black; border-radius: 1px;">
 
-{{-- Tombol Aksi untuk Artikel --}}
+{{-- Tombol Aksi untuk Job --}}
 <div class="mt-3">
     <form action="{{ route('job.destroy', $job->id) }}" method="POST">
         <a href="{{ route('job.index') }}" class="btn btn-dark">&#x2B05;Back</a> 

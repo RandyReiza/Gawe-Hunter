@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Buat Pekerjaan')
+@section('title', 'GAWE HUNTER - Buat Pekerjaan')
 
 @section('content')
     <h3>Buat Pekerjaan</h3>
@@ -34,7 +34,7 @@
         <hr>
         
         <div class="form-group pull-right">
-            <input type="submit" value="Buat Pekejaan" class="btn btn-dark">
+            <input type="submit" value="Buat Pekejaan" class="btn btn-success" onclick="return confirm('Anda yakin dengan data yang anda masukkan?')">
         </div>
     </form>
 @endsection

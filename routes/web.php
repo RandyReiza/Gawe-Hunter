@@ -25,7 +25,9 @@ Route::group(['middleware' => ['auth', 'role:admin']], function () {
     Route::get('admin', 'Admin\AdminController@home')->name('admin-home');
 
     // Route ke method list users
-    Route::get('list-users', 'Admin\AdminController@list_users');
+    Route::get('list-users', 'Admin\AdminController@list_users')->name('list-users');
+    // Route ke method list users
+    Route::post('destroy-users', 'Admin\AdminController@destroyUsers')->name('destroy-users');
     // Route accept
     Route::post('accept', 'Admin\AdminController@accept')->name('accept');
     // Route reject
@@ -45,9 +47,9 @@ Route::group(['middleware' => ['auth', 'role:user']], function () {
     // Route User Profile
     Route::get('profile', 'User\UserController@show')->name('user.profile');
     // Route skill, bikin route resource tp hanya store yg d gunakan
-    Route::resource('skill', 'User\SkillController', ['only' => ['store']]);
+    Route::resource('skill', 'User\SkillController', ['only' => ['store', 'destroy']]);
     // Route experience, bikin route resource tp hanya store yg d gunakan
-    Route::resource('experience', 'User\ExperienceController', ['only' => ['store']]);
+    Route::resource('experience', 'User\ExperienceController', ['only' => ['store', 'destroy']]);
     // Route apply job
     Route::post('apply', 'User\UserController@apply')->name('apply');
     // Route Download CV

@@ -62,7 +62,7 @@ class UserController extends Controller
         } elseif (!isset($request->password)) {
             $password = Auth::user()->password;
         }
-        // data article di masukkan k array
+        // data user di masukkan k array
         $data_user = [
             'name' => $request->name,
             'email' => $request->email,
@@ -71,14 +71,13 @@ class UserController extends Controller
         ];
 
 
-        // update article sesuai dgn id yg dipilih ke DB
+        // update user sesuai dgn id yg dipilih ke DB
         User::find($user_id)->update($data_user);
 
         // tampilkan pesan ke view
         Session::flash("message", "Sukses mengupdate Data Profile");
-        Session::flash("alert", "warning");
-        Session::flash("status", "Warning");
-
+        Session::flash("alert", "success");
+        Session::flash("status", "Sukses");
 
         return redirect()->route('user.profile');
     }

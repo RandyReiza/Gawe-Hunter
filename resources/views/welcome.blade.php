@@ -9,18 +9,14 @@
     <script>
         window.onload = function() {
             toastr_alert("success", "{{ Session::get('message') }}", "Success")
-            swal("Success", "{{ Session::get('message') }}", "success");
         }
     </script>
 @elseif (Session::get('alert') == 'danger')
     <script>
         window.onload = function() {
             toastr_alert("error", "{{ Session::get('message') }}", "Deleted")
-            swal("Terhapus", "{{ Session::get('message') }}", "error");
         }
     </script>
-@else
-
 @endif
 
 {{-- PAGE CONTENT --}}
@@ -28,11 +24,10 @@
     <div class="row-3 mr-3">
         <h2>Daftar Pekerjaan</h2>
     </div>
-        {{-- jika login, dan pengecekkan role !!! --}}
         @auth
             @if (Auth::user()->hasRole('Admin'))
                 <div class="row-9">
-                    <a href="{{ route('job.create') }}" class="btn btn-raised btn-dark">Buat Artikel</a>
+                    <a href="{{ route('job.create') }}" class="btn btn-raised btn-dark">Buat Pekerjaan</a>
                 </div>    
             @endif
         @endauth
@@ -41,8 +36,4 @@
 <div id="list-job">
     @include('jobs.list-job')
 </div>
-@endsection
-
-@section('foot')
-<p>Footernya Job</p>
 @endsection

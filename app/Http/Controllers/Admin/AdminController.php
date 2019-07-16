@@ -9,6 +9,7 @@ use App\User;
 use App\Job;
 use App\Application;
 use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Facades\Session;
 
 class AdminController extends Controller
 {
@@ -44,6 +45,51 @@ class AdminController extends Controller
     }
 
 
+    public function destroyUsers(User $user, Request $request)
+    {
+        // ambil user yg dipilih
+        $user = User::find($request->user_id);
+
+        // ambil user yg melamar k job yg dipilih
+        $jobs = User::find($user->id)->jobs;
+        if (!empty($jobs)) {
+            // detach (delete) ke pivot table job_user (Model: Application)
+            $user->jobs()->detach($jobs);
+        }
+
+        // delete job dgn id yg dipilih
+        User::destroy($user->id);
+
+        // tampilkan pesan ke view
+        Session::flash("message", "Sukses menghapus User");
+        Session::flash("alert", "error");
+        Session::flash("status", "Terhapus");
+
+        return redirect()->route('list-users');
+
+        // ///////////////
+
+        // // ambil job yang dilamar
+        // $job = Job::find($job->id);
+
+        // // ambil user yg melamar k job yg dipilih
+        // $users = Job::find($job->id)->users;
+
+        // // detach (delete) ke pivot table job_user (Model: Application)
+        // $job->users()->detach($users);
+
+        // // delete job dgn id yg dipilih
+        // Job::destroy($job->id);
+
+        // // tampilkan pesan ke view
+        // Session::flash("message", "Sukses menghapus Pekerjaan");
+        // Session::flash("alert", "error");
+        // Session::flash("status", "Terhapus");
+
+        // return redirect()->route('job.index');
+    }
+
+
     // accept application
     public function accept(Request $request)
     {
@@ -52,6 +98,11 @@ class AdminController extends Controller
 
         // update application sesuai dgn id yg dipilih ke DB
         Application::find($request->application_id)->update(['status' => 'Accept', 'note' => $note]);
+
+        // tampilkan pesan ke view
+        Session::flash("message", "Sukses Accept lamaran pekerjaan");
+        Session::flash("alert", "success");
+        Session::flash("status", "Sukses");
 
         return redirect()->route('admin-home');
     }
@@ -64,6 +115,11 @@ class AdminController extends Controller
 
         // update application sesuai dgn id yg dipilih ke DB
         Application::find($request->application_id)->update(['status' => 'Reject', 'note' => $note]);
+
+        // tampilkan pesan ke view
+        Session::flash("message", "Sukses Reject lamaran pekerjaan");
+        Session::flash("alert", "success");
+        Session::flash("status", "Sukses");
 
         return redirect()->route('admin-home');
     }
